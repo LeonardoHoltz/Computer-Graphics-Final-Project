@@ -1,0 +1,3 @@
+C:/Users/Leonardo Holtz/Desktop/Trabalho Computacao Grafica/include/glm/build/CMakeFiles/glm_dummy.dir
+C:/Users/Leonardo Holtz/Desktop/Trabalho Computacao Grafica/include/glm/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Leonardo Holtz/Desktop/Trabalho Computacao Grafica/include/glm/build/CMakeFiles/ZERO_CHECK.dir
