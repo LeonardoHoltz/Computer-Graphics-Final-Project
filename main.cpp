@@ -4,6 +4,7 @@
 
 #include "Camera.h"
 #include "Callbacks.h"
+#include "BufferClear.h"
 
 int main()
 {
@@ -24,6 +25,7 @@ int main()
 
 	while (!glfwWindowShouldClose(window))
 	{
+		ClearScreenBuffers();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
