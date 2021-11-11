@@ -5,11 +5,17 @@
 #include "Camera.h"
 #include "Callbacks.h"
 #include "BufferClear.h"
+#include "Shader.h"
+#include "GPUData.h"
+
 
 int main()
 {
 	glfwInit();
 	gladLoadGL();
+
+	glUseProgram(LenticularObjectShader);
+	LoadObject();
 
 	GLFWwindow* window = glfwCreateWindow(1280, 720, "Computer Graphics Final Project", NULL, NULL);
 	if (window == NULL)
@@ -20,7 +26,6 @@ int main()
 	}
 
 	glfwMakeContextCurrent(window);
-
 	SetCallbacks(window);
 
 	while (!glfwWindowShouldClose(window))

@@ -93,3 +93,14 @@ GLuint LoadShaders(ShaderInfo* shaders)
 
     return program;
 }
+
+void defineShaders() {
+    ShaderInfo  LenticularShaders[] =
+    {
+        { GL_VERTEX_SHADER, "../LenticularShader.vert" },
+        { GL_FRAGMENT_SHADER, "../LenticularShader.frag" },
+        { GL_NONE, NULL }
+    };
+
+    LenticularObjectShader = LoadShaders(LenticularShaders);
+}
