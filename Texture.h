@@ -23,4 +23,5 @@ public:
 	void setData(unsigned char* data);
 };
 
+void CreateTextures();
 Texture LoadNewTexture(const char* fileName);

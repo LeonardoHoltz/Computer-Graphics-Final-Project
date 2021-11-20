@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <iostream>
 
 const int NumVertices = 6;
 
@@ -20,5 +21,6 @@ void LoadObject();
 /// </summary>
 /// <param name="bufferID">ID of the buffer to be binded.</param>
 /// <param name="dataArray">Array that contains the data to be used in a buffer.</param>
+/// <param name="nrVertices">Number of vertices that in the dataArray.</param>
 /// <param name="vertexAttribute">The ID of the vertex attribute to be used in the shader</param>
-void SetBufferFor2DData(GLuint bufferID, GLfloat (*dataArray)[2], GLuint vertexAttribute);
+void SetBufferFor2DData(GLuint bufferID, GLfloat(*dataArray)[2], int nrVertices, GLuint vertexAttribute);

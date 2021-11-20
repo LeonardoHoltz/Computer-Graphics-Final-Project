@@ -4,6 +4,7 @@
 #include "Callbacks.h"
 #include "Shader.h"
 #include "GPUData.h"
+#include "Texture.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -39,11 +40,12 @@ int main()
 	glUseProgram(LenticularObjectShader);
 
 	LoadObject();
-
+	CreateTextures();
 
 	while (!glfwWindowShouldClose(window))
 	{
 		ClearScreenBuffers();
+		glBindVertexArray(VAOs[LenticularObjectVAO]);
 		glDrawArrays(GL_TRIANGLES, 0, NumVertices);
 
 		glfwSwapBuffers(window);

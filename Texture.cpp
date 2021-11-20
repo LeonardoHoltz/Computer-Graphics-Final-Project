@@ -49,16 +49,27 @@ Texture LoadNewTexture(const char* fileName) {
 
 void CreateTextures() {
 	glGenTextures(NumTextures, Textures);
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Textures[LenticularTexture1]);
 	Texture image1 = LoadNewTexture("GRU.jpg");
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image1.getWidth(), image1.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image1.getData());
-	glGenerateMipmap(GL_TEXTURE_2D);
+	if (image1.getData())
+	{
+		std::cout << "Image GRU.jpg loaded successfully." << std::endl;
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image1.getWidth(), image1.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image1.getData());
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, Textures[LenticularTexture2]);
 	Texture image2 = LoadNewTexture("gru delete this.jpg");
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image2.getWidth(), image2.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image2.getData());
-	glGenerateMipmap(GL_TEXTURE_2D);
+	if (image2.getData())
+	{
+		std::cout << "Image GRU.jpg loaded successfully." << std::endl;
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image2.getWidth(), image2.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image2.getData());
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+
 	stbi_image_free(image1.getData());
 	stbi_image_free(image2.getData());
 }
