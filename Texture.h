@@ -2,6 +2,11 @@
 
 #include "stb_image.h"
 #include "GPUData.h"
+#include "Shader.h"
+#include <vector>
+#include <string>
+
+extern std::vector<std::string> Images;
 
 class Texture
 {
@@ -24,4 +29,4 @@ public:
 };
 
 void CreateTextures();
-Texture LoadNewTexture(const char* fileName);
+Texture LoadNewTexture(std::string filename);
