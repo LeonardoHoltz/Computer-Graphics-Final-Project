@@ -47,12 +47,18 @@ Texture LoadNewTexture(const char* fileName) {
 	return newTexture;
 }
 
-void CreateTexture() {
+void CreateTextures() {
 	glGenTextures(NumTextures, Textures);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Textures[LenticularTexture1]);
-	Texture image = LoadNewTexture("GRU.jpg");
-	glActiveTexture(GL_TEXTURE1);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.getWidth(), image.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image.getData());
+	Texture image1 = LoadNewTexture("GRU.jpg");
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image1.getWidth(), image1.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image1.getData());
 	glGenerateMipmap(GL_TEXTURE_2D);
-	stbi_image_free(image.getData());
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, Textures[LenticularTexture2]);
+	Texture image2 = LoadNewTexture("gru delete this.jpg");
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image2.getWidth(), image2.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image2.getData());
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(image1.getData());
+	stbi_image_free(image2.getData());
 }

@@ -25,7 +25,8 @@ void main()
     normal.w = 0.0;
     model_tex_coord = modelTextureID;
 
-    gl_Position = projection * view *  model * vPosition;
+    //gl_Position = projection * view *  model * vPosition;
+    gl_Position = vPosition;
 
     fColor = vColor;
 }

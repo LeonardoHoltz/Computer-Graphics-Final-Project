@@ -9,16 +9,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+void SetupGLFW();
+
 int main()
 {
-	defineShaders();
-	
-	glfwInit();
-	gladLoadGL();
+	// All the GLFW window procedements needed to be done before initiate the GLAD GL loader
 
-	glUseProgram(LenticularObjectShader);
-
-	LoadObject();
+	SetupGLFW();
 
 	GLFWwindow* window = glfwCreateWindow(1280, 720, "Computer Graphics Final Project", NULL, NULL);
 	if (window == NULL)
@@ -30,6 +27,19 @@ int main()
 
 	glfwMakeContextCurrent(window);
 	SetCallbacks(window);
+
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cout << "Failed to initialize GLAD" << std::endl;
+		return -1;
+	}
+
+	defineShaders();
+
+	glUseProgram(LenticularObjectShader);
+
+	LoadObject();
+
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -44,4 +54,13 @@ int main()
 	glfwTerminate();
 
 	return 0;
+}
+
+void SetupGLFW()
+{
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 }

@@ -24,6 +24,7 @@ static const GLchar* ReadShader(const char* filename)
 
     source[len] = 0;
 
+    std::cout << filename << " was loaded and readed correctly." << std::endl;
     return const_cast<const GLchar*>(source);
 }
 
@@ -102,8 +103,8 @@ GLuint LoadShaders(ShaderInfo* shaders)
 void defineShaders() {
     ShaderInfo  LenticularShaders[] =
     {
-        { GL_VERTEX_SHADER, "../LenticularShader.vert" },
-        { GL_FRAGMENT_SHADER, "../LenticularShader.frag" },
+        { GL_VERTEX_SHADER, "LenticularShader.vert" },
+        { GL_FRAGMENT_SHADER, "LenticularShader.frag" },
         { GL_NONE, NULL }
     };
 
