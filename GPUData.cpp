@@ -1,5 +1,9 @@
 #include "GPUData.h"
 
+GLuint VAOs[NumVAOs];
+GLuint Buffers[NumBuffers];
+GLuint Textures[NumTextures];
+
 void LoadObject() {
 	GLfloat vertices[NumVertices][2] = {
 		{ -1.0f, -1.0f }, { 1.0f, -1.0f }, { -1.0f, 1.0f },  // Triangle 1
@@ -12,15 +16,15 @@ void LoadObject() {
 	};
 
 	glGenVertexArrays(NumVAOs, VAOs);
-	glBindVertexArray(VAOs[Triangles]);
+	glBindVertexArray(VAOs[LenticularObjectVAO]);
 
 	glGenBuffers(NumBuffers, Buffers);
 
 	// Bind buffer for the vertices positions
-	SetBuffer(VerticesPositionsBuffer, vertices, vPosition);
+	SetBufferFor2DData(VerticesPositionsBuffer, vertices, vPosition);
 
 	// Bind buffer for the vertices texture coordinates
-	SetBuffer(VerticesTextCoordinatesBuffer, textCoord, vTextCoord);
+	SetBufferFor2DData(VerticesTextCoordinatesBuffer, textCoord, vTextCoord);
 }
 
 

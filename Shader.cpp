@@ -1,8 +1,11 @@
 #include "Shader.h"
 
+GLuint LenticularObjectShader;
+
 static const GLchar* ReadShader(const char* filename)
 {
-    FILE* infile = fopen(filename, "rb");
+    FILE* infile;
+    fopen_s(&infile, filename, "rb");
 
     if (!infile) {
         std::cerr << "Unable to open file '" << filename << "'" << std::endl;
@@ -26,7 +29,9 @@ static const GLchar* ReadShader(const char* filename)
 
 GLuint LoadShaders(ShaderInfo* shaders)
 {
-    if (shaders == NULL) { return 0; }
+    if (shaders == NULL) {
+        return 0;
+    }
 
     GLuint program = glCreateProgram();
 

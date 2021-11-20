@@ -1,20 +1,23 @@
+
+#include "Camera.h"
+#include "BufferClear.h"
+#include "Callbacks.h"
+#include "Shader.h"
+#include "GPUData.h"
+
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Camera.h"
-#include "Callbacks.h"
-#include "BufferClear.h"
-#include "Shader.h"
-#include "GPUData.h"
-
-
 int main()
 {
+	defineShaders();
+	
 	glfwInit();
 	gladLoadGL();
 
 	glUseProgram(LenticularObjectShader);
+
 	LoadObject();
 
 	GLFWwindow* window = glfwCreateWindow(1280, 720, "Computer Graphics Final Project", NULL, NULL);
@@ -31,6 +34,8 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		ClearScreenBuffers();
+		glDrawArrays(GL_TRIANGLES, 0, NumVertices);
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

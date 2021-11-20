@@ -1,4 +1,5 @@
 #pragma once
+
 #include <glad/glad.h>
 #include <iostream>
 
@@ -8,7 +9,8 @@ typedef struct {
     GLuint       shader;
 } ShaderInfo;
 
-GLuint LenticularObjectShader;
+extern GLuint LenticularObjectShader;
 
+void defineShaders();
 static const GLchar* ReadShader(const char* filename);
 GLuint LoadShaders(ShaderInfo* shaders);

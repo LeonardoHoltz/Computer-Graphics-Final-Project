@@ -4,12 +4,14 @@
 
 const int NumVertices = 6;
 
-enum VAO_IDs { Triangles, NumVAOs };
+enum VAO_IDs { LenticularObjectVAO, NumVAOs };
 enum Buffer_IDs { VerticesPositionsBuffer, VerticesTextCoordinatesBuffer, NumBuffers };
 enum Attrib_IDs { vPosition = 0, vTextCoord = 1 };
+enum Texture_IDs { LenticularTexture1, lenticularTexture2, NumTextures };
 
-GLuint  VAOs[NumVAOs];
-GLuint  Buffers[2];
+extern GLuint VAOs[NumVAOs];
+extern GLuint Buffers[NumBuffers];
+extern GLuint Textures[NumTextures];
 
 void LoadObject();
 
