@@ -30,3 +30,5 @@ public:
 	void KeyCallback(int key, int action, int mod);
 	KeyState GetKeyState(int key);
 };
+
+extern Input g_Input;

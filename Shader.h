@@ -13,12 +13,6 @@ typedef struct {
     GLuint       shader;
 } ShaderInfo;
 
-extern GLuint LenticularObjectShader;
-
-void defineShaders();
-static const GLchar* ReadShader(const char* filename);
-GLuint LoadShaders(ShaderInfo* shaders);
-
 
 class GPUProgram {
 private:

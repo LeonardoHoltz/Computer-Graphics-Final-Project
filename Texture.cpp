@@ -51,6 +51,7 @@ Texture LoadNewTexture(std::string filename) {
 	return newTexture;
 }
 
+/*
 void CreateTextures() {
 	glGenTextures(NumTextures, Textures);
 	Images.push_back("mandrill.jpg");
@@ -83,3 +84,4 @@ void CreateTextures() {
 	stbi_image_free(image1.getData());
 	stbi_image_free(image2.getData());
 }
+*/

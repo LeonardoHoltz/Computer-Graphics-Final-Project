@@ -2,6 +2,10 @@
 
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <GLFW/glfw3.h>
+#include "Input.h"
 
 class Camera
 {
@@ -32,10 +36,20 @@ public:
     void SetCameraVelocity(float velocity);
 
     void MoveCamera(glm::vec3 direction);
+
+    /// <summary>
+    /// Updates the camera position and rotation according to the input received via keyboard and mouse
+    /// </summary>
+    void UpdateCamera();
+
     void ChangeCameraAbsolutePosition(glm::vec3 newPosition);
     
     void Roll_Z(float angle);
     void Yaw_Y(float angle);
     void Pitch_X(float angle);
+
+    glm::mat4 View();
+    glm::mat4 Projection(float hfov, float vfov, float nearPlane, float farPlane);
 };
 
+extern Camera g_Cam;

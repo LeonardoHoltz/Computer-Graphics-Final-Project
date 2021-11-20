@@ -7,19 +7,20 @@
 #include "Texture.h"
 #include "Input.h"
 #include "GlintProgram.h"
+#include "LenticularProgram.h"
 
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-Input g_Input;
-
 void SetupGLFW();
+void SetupVariables();
 
-void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
-void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-void CursorPosCallback(GLFWwindow* window, double xpos, double ypos);
-void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+glm::mat4 ViewMatrix;
+glm::mat4 ModelMatrix;
+glm::mat4 ProjectionMatrix;
+
+float HFov, VFov, nearPlane, farPlane;
 
 int main()
 {
@@ -36,12 +37,7 @@ int main()
 	}
 
 	glfwMakeContextCurrent(window);
-	//SetCallbacks(window);
-
-	glfwSetKeyCallback(window, KeyCallback);
-	glfwSetMouseButtonCallback(window, MouseButtonCallback);
-	glfwSetCursorPosCallback(window, CursorPosCallback);
-	glfwSetScrollCallback(window, ScrollCallback);
+	SetCallbacks(window);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -54,21 +50,48 @@ int main()
 	//glUseProgram(LenticularObjectShader);
 
 	Glints_GPUProgram glints;
+	Lenticular_GPUProgram lenticularEffectProgram;
+
 	glints.Create({
 			{ GL_VERTEX_SHADER, "GlintShader.vert" },
 			{ GL_FRAGMENT_SHADER, "GlintShader.frag" },
 		});
+
+	lenticularEffectProgram.Create({
+			{ GL_VERTEX_SHADER, "LenticularShader.vert" },
+			{ GL_FRAGMENT_SHADER, "LenticularShader.frag" },
+		});
+
 	glints.Use();
+
 	float color[4] = { 1.0f, 0.2f, 0.8f, 1.0f };
 	glUniform4fv(glints.color_uniform, 1, color);
 
+	//lenticularEffectProgram.Use();
+
 	LoadObject();
 	//CreateTextures();
+
+	SetupVariables();
+
+	ModelMatrix = glm::mat4(1.0);
+
+	g_Cam.SetCameraVelocity(0.01f);
 
 	while (!glfwWindowShouldClose(window))
 	{
 		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE).is_pressed)
 			glfwSetWindowShouldClose(window, GL_TRUE);
+
+		g_Cam.UpdateCamera();
+		ViewMatrix = g_Cam.View();
+		ProjectionMatrix = g_Cam.Projection(HFov, VFov, nearPlane, farPlane);
+
+		/*
+		glUniformMatrix4fv(view, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+		glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+		glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		*/
 
 		ClearScreenBuffers();
 		glBindVertexArray(VAOs[LenticularObjectVAO]);
@@ -94,27 +117,10 @@ void SetupGLFW()
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 }
 
-
-void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mod)
+void SetupVariables()
 {
-	g_Input.KeyCallback(key, action, mod);
-}
-
-void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
-{
-	g_Input.KeyCallback(button, action, mods);
-}
-
-void CursorPosCallback(GLFWwindow* window, double xpos, double ypos)
-{
-	g_Input.cursor_state.xvalue = xpos;
-	g_Input.cursor_state.yvalue = ypos;
-	g_Input.cursor_changed = true;
-}
-
-void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
-{
-	g_Input.scroll_state.xvalue = xoffset;
-	g_Input.scroll_state.yvalue = yoffset;
-	g_Input.scroll_changed = true;
+	HFov = 90.0f;
+	VFov = 50.0f;
+	nearPlane = 0.5f;
+	farPlane = 5000.0f;
 }

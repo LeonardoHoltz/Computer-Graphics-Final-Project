@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+Camera g_Cam;
+
 Camera::Camera() {
     setPosition(glm::vec3(0.5f, 0.0f, 10.0f));
     setViewDirection(glm::vec3(0.0f, 0.0f, -1.0f));
@@ -49,7 +51,7 @@ void Camera::SetCameraVelocity(float velocity) {
 }
 
 void Camera::MoveCamera(glm::vec3 direction) {
-    setPosition(getPosition() + direction);
+    setPosition(getPosition() + (direction * getCameraVelocity()));
 }
 
 /* ROTATIONS */
@@ -65,4 +67,46 @@ void Camera::Yaw_Y(float angle) {
 void Camera::Pitch_X(float angle) {
     setUpDirection((getUpDirection() * cos(angle)) + (getViewDirection() * sin(angle)));
     setViewDirection((-1.0f * getUpDirection() * sin(angle)) + (getViewDirection() * cos(angle)));
+}
+
+/* MATRIX OPERATIONS */
+
+glm::mat4 Camera::View() {
+    return glm::lookAt(getPosition(), getPosition() + getViewDirection(), getUpDirection());
+}
+
+glm::mat4 Camera::Projection(float hfov, float vfov, float nearPlane, float farPlane) {
+    hfov = glm::radians(hfov);
+    vfov = glm::radians(vfov);
+    float aspectRatio = glm::tan(hfov / 2.0f) / glm::tan(vfov / 2.0f);
+    return glm::perspective(vfov, aspectRatio, nearPlane, farPlane);
+}
+
+void Camera::UpdateCamera() {
+
+    // Camera Translation
+    if (g_Input.key_states[GLFW_KEY_W].is_down)
+    {
+        MoveCamera(glm::vec3(0.0f, 0.0f, -1.0f)); // remember: the forward of the camera is Z negative!
+    }
+    if (g_Input.key_states[GLFW_KEY_A].is_down)
+    {
+        MoveCamera(glm::vec3(-1.0f, 0.0f, 0.0f));
+    }
+    if (g_Input.key_states[GLFW_KEY_S].is_down)
+    {
+        MoveCamera(glm::vec3(0.0f, 0.0f, 1.0f));
+    }
+    if (g_Input.key_states[GLFW_KEY_D].is_down)
+    {
+        MoveCamera(glm::vec3(1.0f, 0.0f, 0.0f));
+    }
+    if (g_Input.key_states[GLFW_KEY_SPACE].is_down)
+    {
+        MoveCamera(glm::vec3(0.0f, 1.0f, 0.0f));
+    }
+    if (g_Input.key_states[GLFW_KEY_LEFT_CONTROL].is_down)
+    {
+        MoveCamera(glm::vec3(0.0f, -1.0f, 0.0f));
+    }
 }

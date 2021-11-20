@@ -3,6 +3,8 @@
 #define GLFW_RELEASE 0
 #define GLFW_PRESS 1
 
+Input g_Input;
+
 void Input::Update()
 {
     std::map<int, KeyState>::iterator it = key_states.begin();
