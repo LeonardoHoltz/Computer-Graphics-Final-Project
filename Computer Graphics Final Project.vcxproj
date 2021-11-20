@@ -149,6 +149,7 @@
     <ClCompile Include="Callbacks.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="GlintProgram.cpp" />
     <ClCompile Include="GPUData.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="BufferClear.h" />
     <ClInclude Include="Callbacks.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="GlintProgram.h" />
     <ClInclude Include="GPUData.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Shader.h" />
@@ -167,6 +169,8 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GlintShader.frag" />
+    <None Include="GlintShader.vert" />
     <None Include="LenticularShader.frag" />
     <None Include="LenticularShader.vert" />
   </ItemGroup>

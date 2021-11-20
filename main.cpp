@@ -6,6 +6,7 @@
 #include "GPUData.h"
 #include "Texture.h"
 #include "Input.h"
+#include "GlintProgram.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -48,12 +49,21 @@ int main()
 		return -1;
 	}
 
-	defineShaders();
+	//defineShaders();
 
-	glUseProgram(LenticularObjectShader);
+	//glUseProgram(LenticularObjectShader);
+
+	Glints_GPUProgram glints;
+	glints.Create({
+			{ GL_VERTEX_SHADER, "GlintShader.vert" },
+			{ GL_FRAGMENT_SHADER, "GlintShader.frag" },
+		});
+	glints.Use();
+	float color[4] = { 1.0f, 0.2f, 0.8f, 1.0f };
+	glUniform4fv(glints.color_uniform, 1, color);
 
 	LoadObject();
-	CreateTextures();
+	//CreateTextures();
 
 	while (!glfwWindowShouldClose(window))
 	{
