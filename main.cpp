@@ -72,6 +72,8 @@ int main()
 		if (g_Input.GetKeyState(GLFW_KEY_ESCAPE).is_pressed)
 			glfwSetWindowShouldClose(window, GL_TRUE);
 
+		ClearScreenBuffers();
+
 		g_Cam.UpdateCamera();
 		ViewMatrix = g_Cam.View();
 		ProjectionMatrix = g_Cam.Projection(HFov, VFov, nearPlane, farPlane);
@@ -80,8 +82,7 @@ int main()
 		lenticularEffectProgram.SetTextureUniforms();
 		lenticularEffectProgram.SetMatrixUniforms(ViewMatrix, ProjectionMatrix, ModelMatrix);
 
-		ClearScreenBuffers();
-		g_CurrentScene.DrawSceneObject("plane");
+		g_CurrentScene.DrawSceneObject("plane"); // draw plane using the lenticular effect
 
 
 		glfwSwapBuffers(window);

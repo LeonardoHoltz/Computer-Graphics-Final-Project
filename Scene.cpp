@@ -59,7 +59,7 @@ void Scene::AddModelToScene(ObjModel model) {
     this->SetArrayBuffer(&theobject, VerticesBuffer, vertexLocation, 4, model_coefficients.size(), model_coefficients.data());
     if (!normal_coefficients.empty())
         this->SetArrayBuffer(&theobject, NormalsBuffer,  normalLocation,   4, normal_coefficients.size(), normal_coefficients.data());
-    if (!normal_coefficients.empty())
+    if (!texture_coefficients.empty())
         this->SetArrayBuffer(&theobject, TextureCoordBuffer, textCoordLocation, 2, texture_coefficients.size(), texture_coefficients.data());
 
     GLuint indices_id;

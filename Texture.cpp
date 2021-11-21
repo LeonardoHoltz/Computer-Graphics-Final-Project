@@ -57,7 +57,7 @@ void CreateTextures() {
 	Images.push_back("hank_happy.png");
 	Images.push_back("hank_unpleased.png");
 
-	stbi_set_flip_vertically_on_load(true);
+	//stbi_set_flip_vertically_on_load(true);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Textures[LenticularTexture1]);

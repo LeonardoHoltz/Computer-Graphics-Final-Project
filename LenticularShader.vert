@@ -1,11 +1,10 @@
 #version 450 core
 
-layout( location = 0 ) in vec4 vPosition;
-layout( location = 1 ) in vec2 texCoord;
-layout( location = 2 ) in vec4 vNormal;
+layout( location = 0 ) in vec4 vertexLocation;
+layout( location = 1 ) in vec4 normalLocation;
+layout( location = 2 ) in vec2 textCoordLocation;
 
 layout( location = 3 ) uniform vec4 vColor;
-
 
 uniform mat4 model;
 uniform mat4 view;
@@ -15,18 +14,20 @@ out vec4 fColor;
 out vec4 normal;
 out vec4 world_position;
 out vec2 model_tex_coord;
+out vec2 B;
 
 void main()
 {
     vec4 origin = vec4(0.0, 0.0, 0.0, 1.0);
-    //vec4 camera_position = inverse(view) * origin;
-    world_position = model * vPosition; // usually is model * vPosition, but since the model matrix is always the identity, let's make things simple.
-    normal = inverse(transpose(model)) * vNormal;
+    world_position = model * vertexLocation;
+    vec4 BVector = vec4(1.0, 0.0, 0.0, 1.0);
+    BVector = inverse(transpose(model)) * BVector;
+    B = vec2(BVector.x, BVector.y);
+    normal = inverse(transpose(model)) * normalLocation;
     normal.w = 0.0;
-    model_tex_coord = texCoord;
+    model_tex_coord = textCoordLocation;
 
-    gl_Position = projection * view *  model * vPosition;
-    //gl_Position = vPosition;
+    gl_Position = projection * view *  model * vertexLocation;
 
     fColor = vColor;
 }

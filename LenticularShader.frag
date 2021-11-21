@@ -4,6 +4,7 @@ in vec4 fColor;
 in vec4 normal;
 in vec4 world_position;
 in vec2 model_tex_coord;
+in vec2 B;
 
 uniform mat4 view;
 
@@ -39,7 +40,7 @@ void main()
        The vector B is the orthogonal vector to the vertices normals and the vector
        vec3(0.0, 1.0, 0.0), we can calculate it through a cross product */
 
-    vec2 B = vec2(1.0, 0.0);
+    //vec2 B = vec2(1.0, 0.0);
     vec2 A = normalize(vec2(camera_position.x, camera_position.z) - vec2(world_position.x, world_position.z));
 
     int sectors = 512;
