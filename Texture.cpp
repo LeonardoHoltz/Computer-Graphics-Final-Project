@@ -57,8 +57,8 @@ Texture LoadNewTexture(std::string filename) {
 
 void CreateTextures() {
 	glGenTextures(NumTextures, Textures);
-	Images.push_back("mandrill.jpg");
-	Images.push_back("checker.jpg");
+	Images.push_back("hank_happy.png");
+	Images.push_back("hank_unpleased.png");
 
 	stbi_set_flip_vertically_on_load(true);
 
@@ -68,9 +68,12 @@ void CreateTextures() {
 	if (image1.getData())
 	{
 		std::cout << "Image " << Images[0] << " was loaded successfully." << std::endl;
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image1.getWidth(), image1.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image1.getData());
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image1.getWidth(), image1.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image1.getData());
 		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
+	stbi_image_free(image1.getData());
 	
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, Textures[LenticularTexture2]);
@@ -78,11 +81,11 @@ void CreateTextures() {
 	if (image2.getData())
 	{
 		std::cout << "Image " << Images[1] << " was loaded successfully." << std::endl;
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image2.getWidth(), image2.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image2.getData());
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image2.getWidth(), image2.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image2.getData());
 		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
-
-	stbi_image_free(image1.getData());
 	stbi_image_free(image2.getData());
 }
 

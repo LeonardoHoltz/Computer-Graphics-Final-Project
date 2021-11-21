@@ -63,7 +63,7 @@ int main()
 
 	ModelMatrix = glm::mat4(1.0);
 
-	g_Cam.SetCameraVelocity(0.01f);
+	g_Cam.SetCameraVelocity(0.001f);
 
 	glEnable(GL_DEPTH_TEST);
 

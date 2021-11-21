@@ -87,26 +87,42 @@ void Camera::UpdateCamera() {
     // Camera Translation
     if (g_Input.key_states[GLFW_KEY_W].is_down)
     {
-        MoveCamera(glm::vec3(0.0f, 0.0f, -1.0f)); // remember: the forward of the camera is Z negative!
+        MoveCamera(getViewDirection()); // remember: the forward of the camera is Z negative!
     }
     if (g_Input.key_states[GLFW_KEY_A].is_down)
     {
-        MoveCamera(glm::vec3(-1.0f, 0.0f, 0.0f));
+        MoveCamera(-getRightDirection());
     }
     if (g_Input.key_states[GLFW_KEY_S].is_down)
     {
-        MoveCamera(glm::vec3(0.0f, 0.0f, 1.0f));
+        MoveCamera(-getViewDirection());
     }
     if (g_Input.key_states[GLFW_KEY_D].is_down)
     {
-        MoveCamera(glm::vec3(1.0f, 0.0f, 0.0f));
+        MoveCamera(getRightDirection());
     }
     if (g_Input.key_states[GLFW_KEY_SPACE].is_down)
     {
-        MoveCamera(glm::vec3(0.0f, 1.0f, 0.0f));
+        MoveCamera(getUpDirection());
     }
     if (g_Input.key_states[GLFW_KEY_LEFT_CONTROL].is_down)
     {
-        MoveCamera(glm::vec3(0.0f, -1.0f, 0.0f));
+        MoveCamera(-getUpDirection());
+    }
+    if (g_Input.key_states[GLFW_KEY_I].is_down)
+    {
+        Pitch_X(-0.0005f);
+    }
+    if (g_Input.key_states[GLFW_KEY_J].is_down)
+    {
+        Yaw_Y(0.0005);
+    }
+    if (g_Input.key_states[GLFW_KEY_K].is_down)
+    {
+        Pitch_X(0.0005f);
+    }
+    if (g_Input.key_states[GLFW_KEY_L].is_down)
+    {
+        Yaw_Y(-0.0005f);
     }
 }

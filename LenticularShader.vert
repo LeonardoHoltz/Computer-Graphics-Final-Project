@@ -11,9 +11,6 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-
-
-
 out vec4 fColor;
 out vec4 normal;
 out vec4 world_position;
