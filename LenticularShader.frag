@@ -5,7 +5,7 @@ in vec4 normal;
 in vec4 world_position;
 in vec2 model_tex_coord;
 
-layout( location = 5 ) uniform mat4 view;
+uniform mat4 view;
 
 uniform sampler2D tex0;
 uniform sampler2D tex1;

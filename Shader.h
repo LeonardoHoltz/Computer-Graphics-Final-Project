@@ -2,6 +2,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <fstream>
 #include <sstream>

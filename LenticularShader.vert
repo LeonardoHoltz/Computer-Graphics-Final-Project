@@ -7,9 +7,9 @@ layout( location = 2 ) in vec4 vNormal;
 layout( location = 3 ) uniform vec4 vColor;
 
 
-layout( location = 4 ) uniform mat4 model;
-layout( location = 5 ) uniform mat4 view;
-layout( location = 6 ) uniform mat4 projection;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
 
 
@@ -23,13 +23,13 @@ void main()
 {
     vec4 origin = vec4(0.0, 0.0, 0.0, 1.0);
     //vec4 camera_position = inverse(view) * origin;
-    world_position = vPosition; // usually is model * vPosition, but since the model matrix is always the identity, let's make things simple.
+    world_position = model * vPosition; // usually is model * vPosition, but since the model matrix is always the identity, let's make things simple.
     normal = inverse(transpose(model)) * vNormal;
     normal.w = 0.0;
     model_tex_coord = texCoord;
 
-    //gl_Position = projection * view *  model * vPosition;
-    gl_Position = vPosition;
+    gl_Position = projection * view *  model * vPosition;
+    //gl_Position = vPosition;
 
     fColor = vColor;
 }

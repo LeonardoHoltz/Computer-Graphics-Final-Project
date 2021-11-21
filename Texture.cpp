@@ -51,7 +51,7 @@ Texture LoadNewTexture(std::string filename) {
 	return newTexture;
 }
 
-/*
+
 void CreateTextures() {
 	glGenTextures(NumTextures, Textures);
 	Images.push_back("mandrill.jpg");
@@ -67,7 +67,6 @@ void CreateTextures() {
 		std::cout << "Image " << Images[0] << " was loaded successfully." << std::endl;
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image1.getWidth(), image1.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image1.getData());
 		glGenerateMipmap(GL_TEXTURE_2D);
-		glUniform1i(glGetUniformLocation(LenticularObjectShader, "tex0"), 0);
 	}
 	
 	glActiveTexture(GL_TEXTURE1);
@@ -78,10 +77,8 @@ void CreateTextures() {
 		std::cout << "Image " << Images[1] << " was loaded successfully." << std::endl;
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image2.getWidth(), image2.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image2.getData());
 		glGenerateMipmap(GL_TEXTURE_2D);
-		glUniform1i(glGetUniformLocation(LenticularObjectShader, "tex1"), 1);
 	}
 
 	stbi_image_free(image1.getData());
 	stbi_image_free(image2.getData());
 }
-*/

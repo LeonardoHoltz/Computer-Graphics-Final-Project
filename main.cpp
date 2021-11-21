@@ -67,10 +67,11 @@ int main()
 	float color[4] = { 1.0f, 0.2f, 0.8f, 1.0f };
 	glUniform4fv(glints.color_uniform, 1, color);
 
-	//lenticularEffectProgram.Use();
+	lenticularEffectProgram.Use();
+	lenticularEffectProgram.SetTextureUniforms();
 
 	LoadObject();
-	//CreateTextures();
+	CreateTextures();
 
 	SetupVariables();
 
@@ -87,11 +88,7 @@ int main()
 		ViewMatrix = g_Cam.View();
 		ProjectionMatrix = g_Cam.Projection(HFov, VFov, nearPlane, farPlane);
 
-		/*
-		glUniformMatrix4fv(view, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-		glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-		glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-		*/
+		lenticularEffectProgram.SetMatrixUniforms(ViewMatrix, ProjectionMatrix, ModelMatrix);
 
 		ClearScreenBuffers();
 		glBindVertexArray(VAOs[LenticularObjectVAO]);
