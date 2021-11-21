@@ -3,7 +3,7 @@
 Camera g_Cam;
 
 Camera::Camera() {
-    setPosition(glm::vec3(0.5f, 0.0f, 10.0f));
+    setPosition(glm::vec3(0.0f, 0.0f, 3.0f));
     setViewDirection(glm::vec3(0.0f, 0.0f, -1.0f));
     setUpDirection(glm::vec3(0.0f, 1.0f, 0.0f));
     setRightDirection(glm::vec3(1.0f, 0.0f, 0.0f));

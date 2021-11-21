@@ -3,15 +3,18 @@
 #include "BufferClear.h"
 #include "Callbacks.h"
 #include "Shader.h"
-#include "GPUData.h"
+//#include "GPUData.h"
 #include "Texture.h"
 #include "Input.h"
+#include "Model.h"
+#include "Scene.h"
 #include "GlintProgram.h"
 #include "LenticularProgram.h"
 
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtx/transform.hpp>
 
 void SetupGLFW();
 void SetupVariables();
@@ -21,6 +24,12 @@ glm::mat4 ModelMatrix;
 glm::mat4 ProjectionMatrix;
 
 float HFov, VFov, nearPlane, farPlane;
+
+Scene g_CurrentScene;
+Glints_GPUProgram glint_program;
+Lenticular_GPUProgram lenticularEffectProgram;
+
+void Load();
 
 int main()
 {
@@ -45,39 +54,18 @@ int main()
 		return -1;
 	}
 
-	//defineShaders();
-
-	//glUseProgram(LenticularObjectShader);
-
-	Glints_GPUProgram glints;
-	Lenticular_GPUProgram lenticularEffectProgram;
-
-	glints.Create({
-			{ GL_VERTEX_SHADER, "GlintShader.vert" },
-			{ GL_FRAGMENT_SHADER, "GlintShader.frag" },
-		});
-
-	lenticularEffectProgram.Create({
-			{ GL_VERTEX_SHADER, "LenticularShader.vert" },
-			{ GL_FRAGMENT_SHADER, "LenticularShader.frag" },
-		});
-
-	glints.Use();
+	Load();
 
 	float color[4] = { 1.0f, 0.2f, 0.8f, 1.0f };
-	glUniform4fv(glints.color_uniform, 1, color);
-
-	lenticularEffectProgram.Use();
-	lenticularEffectProgram.SetTextureUniforms();
-
-	LoadObject();
-	CreateTextures();
+	glUniform4fv(glint_program.color_uniform, 1, color);
 
 	SetupVariables();
 
 	ModelMatrix = glm::mat4(1.0);
 
 	g_Cam.SetCameraVelocity(0.01f);
+
+	glEnable(GL_DEPTH_TEST);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -88,11 +76,13 @@ int main()
 		ViewMatrix = g_Cam.View();
 		ProjectionMatrix = g_Cam.Projection(HFov, VFov, nearPlane, farPlane);
 
+		lenticularEffectProgram.Use();
+		lenticularEffectProgram.SetTextureUniforms();
 		lenticularEffectProgram.SetMatrixUniforms(ViewMatrix, ProjectionMatrix, ModelMatrix);
 
 		ClearScreenBuffers();
-		glBindVertexArray(VAOs[LenticularObjectVAO]);
-		glDrawArrays(GL_TRIANGLES, 0, NumVertices);
+		g_CurrentScene.DrawSceneObject("plane");
+
 
 		glfwSwapBuffers(window);
 		g_Input.Update();
@@ -103,6 +93,28 @@ int main()
 	glfwTerminate();
 
 	return 0;
+}
+
+void Load() {
+	glint_program.Create({
+			{ GL_VERTEX_SHADER, "GlintShader.vert" },
+			{ GL_FRAGMENT_SHADER, "GlintShader.frag" },
+		});
+
+	lenticularEffectProgram.Create({
+			{ GL_VERTEX_SHADER, "LenticularShader.vert" },
+			{ GL_FRAGMENT_SHADER, "LenticularShader.frag" },
+		});
+
+	CreateTextures();
+
+	ObjModel bunny = ObjModel("Models/bunny.obj");
+	ObjModel cube = ObjModel("Models/cube.obj");
+	ObjModel plane = ObjModel("Models/plane.obj");
+
+	g_CurrentScene.AddModelToScene(bunny);
+	g_CurrentScene.AddModelToScene(cube);
+	g_CurrentScene.AddModelToScene(plane);
 }
 
 void SetupGLFW()
