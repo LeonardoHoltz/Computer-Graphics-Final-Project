@@ -6,13 +6,14 @@
 const int NumVertices = 6;
 
 enum VAO_IDs { LenticularObjectVAO, NumVAOs };
-enum Buffer_IDs { VerticesPositionsBuffer, VerticesTextCoordinatesBuffer, NumBuffers };
+enum Buffer_IDs { VerticesPositionsBuffer, VerticesTextCoordinatesBuffer, NumBuffers_ };
 enum Attrib_IDs { vPosition = 0, vTextCoord = 1 };
 enum Texture_IDs { LenticularTexture1, LenticularTexture2, NumTextures };
 
 extern GLuint VAOs[NumVAOs];
-extern GLuint Buffers[NumBuffers];
+extern GLuint Buffers[NumBuffers_];
 extern GLuint Textures[NumTextures];
+
 
 void LoadObject();
 

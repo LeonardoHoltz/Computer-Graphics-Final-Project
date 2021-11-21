@@ -1,8 +1,8 @@
 #include "GPUData.h"
-
 GLuint VAOs[NumVAOs];
-GLuint Buffers[NumBuffers];
+GLuint Buffers[NumBuffers_];
 GLuint Textures[NumTextures];
+
 
 void LoadObject() {
 	GLfloat vertices[NumVertices][2] = {
@@ -18,7 +18,7 @@ void LoadObject() {
 	glGenVertexArrays(NumVAOs, VAOs);
 	glBindVertexArray(VAOs[LenticularObjectVAO]);
 
-	glGenBuffers(NumBuffers, Buffers);
+	glGenBuffers(NumBuffers_, Buffers);
 
 	// Bind buffer for the vertices positions
 	SetBufferFor2DData(VerticesPositionsBuffer, vertices, NumVertices, vPosition);
