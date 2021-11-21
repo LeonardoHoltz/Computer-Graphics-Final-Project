@@ -30,3 +30,6 @@ public:
 
 void CreateTextures();
 Texture LoadNewTexture(std::string filename);
+
+// DISTRIBUTIONS - GLINT SHADER
+GLuint loadDictionary(const unsigned int nlevels, const GLsizei ndists);

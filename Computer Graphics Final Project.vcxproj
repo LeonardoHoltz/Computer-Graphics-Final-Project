@@ -169,11 +169,13 @@
     <ClInclude Include="GPUData.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LenticularProgram.h" />
+    <ClInclude Include="Libraries\include\miniz.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="tinyexr.h" />
     <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>

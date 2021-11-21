@@ -1,5 +1,8 @@
 #include "Texture.h"
 
+#define TINYEXR_IMPLEMENTATION
+#include "tinyexr.h"
+
 std::vector<std::string> Images;
 
 Texture::Texture(int width, int height, int nrChannels, unsigned char* data) {
@@ -81,4 +84,74 @@ void CreateTextures() {
 
 	stbi_image_free(image1.getData());
 	stbi_image_free(image2.getData());
+}
+
+
+GLuint loadDictionary(const unsigned int nlevels, const GLsizei ndists)
+{
+	GLuint texID;
+	glGenTextures(1, &texID);
+	glBindTexture(GL_TEXTURE_1D_ARRAY, texID);
+
+	GLint width;
+	GLint height;
+	GLsizei layerCount = ndists * nlevels;
+	GLsizei mipLevelCount = 1;
+
+	std::string texName = "dictionary/dict_16_192_64_0p5_0p02_0000_0000.exr";
+	float* data;
+	const char** err = nullptr;
+	bool ret = LoadEXR(&data, &width, &height, texName.c_str(), err);
+	if (!ret) {
+		std::cerr << "Error loading exr file: " << texName << std::endl;
+		exit(-1);
+	}
+
+	glTexImage2D(GL_TEXTURE_1D_ARRAY, 0, GL_RGB16F, width, layerCount, 0, GL_RGBA, GL_FLOAT, data);
+	glTexSubImage2D(GL_TEXTURE_1D_ARRAY, 0, 0, 0, width, 1, GL_RGBA, GL_FLOAT, data);
+	
+	//free(data);
+
+	for (int l = 0; l < nlevels; ++l) {
+		std::cout << l << std::endl;
+		std::string index_level;
+		if (l < 10)
+			index_level = "000" + std::to_string(l);
+		else if (l < 100)
+			index_level = "00" + std::to_string(l);
+		else if (l < 1000)
+			index_level = "0" + std::to_string(l);
+		else
+			index_level = std::to_string(l);
+
+		for (int i = 0; i < ndists; i++) {
+
+			if (l == 0 && i == 0) continue;
+
+			std::string index_dist;
+			if (i < 10)
+				index_dist = "000" + std::to_string(i);
+			else if (i < 100)
+				index_dist = "00" + std::to_string(i);
+			else if (i < 1000)
+				index_dist = "0" + std::to_string(i);
+			else
+				index_dist = std::to_string(i);
+
+			texName = "dictionary/dict_16_192_64_0p5_0p02_" + index_dist + "_" + index_level + ".exr";
+			bool ret = LoadEXR(&data, &width, &height, texName.c_str(), err);
+			if (!ret) {
+				exit(-1);
+			}
+			glTexSubImage2D(GL_TEXTURE_1D_ARRAY, 0, 0, l * ndists + i, width, 1, GL_RGBA, GL_FLOAT, data);
+			
+			//free(data);
+		}
+	}
+
+	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+
+	return texID;
 }

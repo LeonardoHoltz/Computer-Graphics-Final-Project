@@ -81,7 +81,7 @@ int main()
 		lenticularEffectProgram.SetMatrixUniforms(ViewMatrix, ProjectionMatrix, ModelMatrix);
 
 		ClearScreenBuffers();
-		g_CurrentScene.DrawSceneObject("plane");
+		g_CurrentScene.DrawSceneObject("cube");
 
 
 		glfwSwapBuffers(window);
@@ -115,6 +115,8 @@ void Load() {
 	g_CurrentScene.AddModelToScene(bunny);
 	g_CurrentScene.AddModelToScene(cube);
 	g_CurrentScene.AddModelToScene(plane);
+
+	loadDictionary(16, 64);
 }
 
 void SetupGLFW()
