@@ -63,7 +63,7 @@ int main()
 
 	ModelMatrix = glm::mat4(1.0);
 
-	g_Cam.SetCameraVelocity(0.001f);
+	g_Cam.SetCameraVelocity(0.1f);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -81,7 +81,7 @@ int main()
 		lenticularEffectProgram.SetMatrixUniforms(ViewMatrix, ProjectionMatrix, ModelMatrix);
 
 		ClearScreenBuffers();
-		g_CurrentScene.DrawSceneObject("cube");
+		g_CurrentScene.DrawSceneObject("bunny");
 
 
 		glfwSwapBuffers(window);
