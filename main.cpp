@@ -80,6 +80,7 @@ int main()
 
 		lenticularEffectProgram.Use();
 		lenticularEffectProgram.SetTextureUniforms();
+		lenticularEffectProgram.SetSectorCount(64);
 		lenticularEffectProgram.SetMatrixUniforms(ViewMatrix, ProjectionMatrix, ModelMatrix);
 
 		g_CurrentScene.DrawSceneObject("plane"); // draw plane using the lenticular effect

@@ -5,6 +5,8 @@ void Lenticular_GPUProgram::MapUniforms() {
 	modelMatrixUniform = glGetUniformLocation(program_id, "model");
 	projectionMatrixUniform = glGetUniformLocation(program_id, "projection");
 
+	sectorCountUniform = glGetUniformLocation(program_id, "sectors");
+
 	Texture0Uniform = glGetUniformLocation(program_id, "tex0");
 	Texture1Uniform = glGetUniformLocation(program_id, "tex1");
 }
@@ -18,4 +20,8 @@ void Lenticular_GPUProgram::SetMatrixUniforms(glm::mat4 viewMatrix, glm::mat4 pr
 	glUniformMatrix4fv(viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 	glUniformMatrix4fv(projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	glUniformMatrix4fv(modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+}
+
+void Lenticular_GPUProgram::SetSectorCount(int sectorcount) {
+	glUniform1i(sectorCountUniform, sectorcount);
 }

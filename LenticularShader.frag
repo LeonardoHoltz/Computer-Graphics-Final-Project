@@ -8,6 +8,8 @@ in vec2 B;
 
 uniform mat4 view;
 
+uniform int sectors;
+
 uniform sampler2D tex0;
 uniform sampler2D tex1;
 
@@ -41,8 +43,6 @@ void main()
        vec3(0.0, 1.0, 0.0), we can calculate it through a cross product */
 
     vec2 A = normalize(vec2(camera_position.x, camera_position.z) - vec2(world_position.x, world_position.z));
-
-    int sectors = 512;
 
     float dot_product = dot(A, B);
     float projection_value = (((dot_product - (-1.0)) * (1.0 - 0.0)) / (1.0 - (-1.0))) + 0.0;
