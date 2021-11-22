@@ -40,7 +40,6 @@ void main()
        The vector B is the orthogonal vector to the vertices normals and the vector
        vec3(0.0, 1.0, 0.0), we can calculate it through a cross product */
 
-    //vec2 B = vec2(1.0, 0.0);
     vec2 A = normalize(vec2(camera_position.x, camera_position.z) - vec2(world_position.x, world_position.z));
 
     int sectors = 512;
@@ -53,10 +52,10 @@ void main()
     float interval_end = interval_value;
     float x_coord = model_tex_coord.x;
     float interval_distance, final_coord;
-    while(interval_end <= 1.0) {
+    while(interval_end <= 1.0) { // discover which section the coordinate is
         if(x_coord <= interval_init && x_coord <= interval_end) {
             interval_distance = x_coord - interval_init;
-            final_coord = interval_distance * sectors;
+            final_coord = interval_distance * sectors; // final_coord is the percentage value of the fragment inside the sector
             break;
         }
         else {
@@ -70,18 +69,18 @@ void main()
 
     if( dot_product < 0) {
         if (dot_product < final_coord) {
-            textColor = texture(tex1, model_tex_coord).rgba; // azul
+            textColor = texture(tex1, model_tex_coord).rgba;
         }
         else {
-            textColor = texture(tex0, model_tex_coord).rgba; // vermelho
+            textColor = texture(tex0, model_tex_coord).rgba;
         }
     }
     else {
         if (-dot_product > final_coord) {
-            textColor = texture(tex0, model_tex_coord).rgba; // vermelho
+            textColor = texture(tex0, model_tex_coord).rgba;
         }
         else {
-            textColor = texture(tex1, model_tex_coord).rgba; // azul
+            textColor = texture(tex1, model_tex_coord).rgba;
         }
     }
   
