@@ -18,10 +18,13 @@
 
 void SetupGLFW();
 void SetupVariables();
+void ChangeSectors();
 
 glm::mat4 ViewMatrix;
 glm::mat4 ModelMatrix;
 glm::mat4 ProjectionMatrix;
+
+int numSectors = 10;
 
 float HFov, VFov, nearPlane, farPlane;
 
@@ -75,16 +78,17 @@ int main()
 		ClearScreenBuffers();
 
 		g_Cam.UpdateCamera();
+		ChangeSectors();
+
 		ViewMatrix = g_Cam.View();
 		ProjectionMatrix = g_Cam.Projection(HFov, VFov, nearPlane, farPlane);
 
 		lenticularEffectProgram.Use();
 		lenticularEffectProgram.SetTextureUniforms();
-		lenticularEffectProgram.SetSectorCount(64);
+		lenticularEffectProgram.SetSectorCount(numSectors);
 		lenticularEffectProgram.SetMatrixUniforms(ViewMatrix, ProjectionMatrix, ModelMatrix);
 
 		g_CurrentScene.DrawSceneObject("plane"); // draw plane using the lenticular effect
-
 
 		glfwSwapBuffers(window);
 		g_Input.Update();
@@ -134,4 +138,19 @@ void SetupVariables()
 	VFov = 50.0f;
 	nearPlane = 0.5f;
 	farPlane = 5000.0f;
+}
+
+void ChangeSectors() {
+	if (g_Input.key_states[GLFW_KEY_Z].is_down)
+	{
+		if (numSectors > 4) {
+			numSectors--;
+		}
+	}
+	if (g_Input.key_states[GLFW_KEY_X].is_down)
+	{
+		if (numSectors <  1000) {
+			numSectors++;
+		}
+	}
 }
